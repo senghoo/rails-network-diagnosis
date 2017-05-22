@@ -11,11 +11,8 @@ module Diag
     end
 
     def network_update
-      begin
-        DiagService.network ENV['NETWORK_TEMPLATE'], params
-      rescue
-      end
-      redirect_to diag_network_path
+      DiagService.network ENV['NETWORK_TEMPLATE'], params
+      redirect_to network_path
     end
 
     def ping

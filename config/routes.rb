@@ -2,7 +2,7 @@ Diag::Engine.routes.draw do
   get '', to: 'diag#index', as: 'diag_index'
 
   get 'network', to: 'diag#network'
-  get 'network_update', to: 'diag#network_update'
+  post 'network', to: 'diag#network_update'
 
   get 'ping', to: 'diag#ping'
   post 'ping', to: 'diag#ping_do'

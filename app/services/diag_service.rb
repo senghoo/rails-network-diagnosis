@@ -20,6 +20,20 @@ class DiagService
       end
     end
 
+    def read_network
+        filename = ENV['NETWORK_CONFIG']
+        values = {}
+        File.open(filename, "r") do |f|
+          while(line = f.gets)
+            args = line.split(' ') unless line.start_with?('#')
+            unless args.nil? || args[0].nil?
+              values[args[0]] = args[1]
+            end
+          end
+          return values
+        end
+    end
+
     def network template_path, params
       ip = params[:ip]
       gateway = params[:gateway]
@@ -28,25 +42,30 @@ class DiagService
       if host?(ip) && host?(gateway) && host?(netmask) && host?(dns)
         content = File.open(template_path).read
         template = ERB.new(content)
-        template.result({ip: ip,
-                         gateway: gateway,
-                         netmask: netmask,
-                         dns: dns})
+        res = template.result(binding)
+
+        File.open(ENV['NETWORK_CONFIG'], "w+") do |f|
+          f.write(res)
+        end
       else
         raise HostInvalid.new
       end
     end
 
     def ip
+      read_network['address']
     end
 
     def netmask
+      read_network['netmask']
     end
 
     def gateway
+      read_network['gateway']
     end
 
     def dns
+      read_network['dns-nameservers']
     end
 
     private

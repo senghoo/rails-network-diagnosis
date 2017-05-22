@@ -1,0 +1,12 @@
+auto bond0
+iface bond0 inet static
+    address <%= ip %>
+    netmask <%= netmask %>
+    gateway <%= gateway %>
+    slaves eth0 eth1 eth2 eth3 eth4 eth5
+    bond_mode active-backup
+    bond_miimon 100
+    bond_downdelay 200
+    bond_updelay 200
+    dns-nameservers <%= dns %>
+

@@ -1,0 +1,76 @@
+
+<h1>网络设置</h1>
+<p class="text-muted">系统网络端口设置，如设置错误请通过Console终端重新配置</p>
+
+<% if @casted_settings && @casted_settings[:errors].any? %>
+    <div class="alert alert-danger">
+        <%= t('settings.index.settings_include_errors') %>
+    </div>
+<% end %>
+<%= form_tag [:network], method: :post, class: 'form' do %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <%= t('settings.index.description') %>
+                </th>
+                <th>
+                    <%= t('settings.index.value') %>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td>
+                    IP
+                </td>
+                <td class="setting-value">
+                    <div class="form-group">
+                        <%= text_field_tag :ip, DiagService.ip, :required=>true%>
+                        <span class="help-block">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr >
+                <td>
+                    子网掩码
+                </td>
+                <td class="setting-value">
+                    <div class="form-group">
+                        <%= text_field_tag :netmask, DiagService.netmask, :required=>true%>
+                        <span class="help-block">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    网关
+                </td>
+                <td class="setting-value">
+                    <div class="form-group">
+                        <%= text_field_tag :gateway, DiagService.gateway, :required=>true%>
+                        <span class="help-block">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr >
+                <td>
+                    DNS
+                </td>
+                <td class="setting-value">
+                    <div class="form-group">
+                        <%= text_field_tag :dns, DiagService.dns, :required=>true%>
+                        <span class="help-block">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <%= submit_tag "提交", class: 'btn btn-primary btn-lg' %>
+<% end %>

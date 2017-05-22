@@ -1,0 +1,32 @@
+<div class="page-header">
+  <h1>Traceroute</h1>
+</div>
+<%= form_tag [:traceroute], method: :post, class: 'form', multipart: true do %>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <%= t('settings.index.description') %>
+                </th>
+                <th>
+                    <%= t('settings.index.value') %>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td>
+                    主机
+                </td>
+                <td class="setting-value">
+                    <div class="form-group">
+                        <%= text_field_tag :host, '', :required=>true%>
+                        <span class="help-block">
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <%= submit_tag "提交", class: 'btn btn-primary ' %>
+<% end %>
